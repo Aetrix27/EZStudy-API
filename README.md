@@ -15,11 +15,8 @@ Example usage for parameter:
 Parameter:
 
 Parameter | Type | Usage | Description | 
---- | --- | --- | --- |
 randEquation() | Function | randEquation() | Gets a randomly selected equation by creating a new equation object, and adds it to the randProblemsArr. | 
---- | --- | --- | --- |
 randProblemsArr | Array | selectedEquations[0].randProblemsArr[0] for accessing a specific equation. | Shows the array of problems. | 
---- | --- | --- | --- |
 EZEquation | Class | const equation1 = new EZEquation() | Equation class with sample problems, instantiated when randEquation() is called. | 
 
 ## Random Problems Array
