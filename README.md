@@ -1,3 +1,31 @@
+## Documentation
+
+### Retrieve a Random Equation
+Instantiate an equation class and call the get function to get a random equation
+## EZEquations Documentation
+This API uses Javascript.
+
+## Sign Up and Login
+You must get authenticated during the sign in for security purposes.
+
+Example usage for parameter:
+
+## randEquation() Usage
+
+Parameter:
+
+Parameter | Type | Usage | Description | 
+--- | --- | --- | --- |
+randEquation() | Function | randEquation() | Gets a randomly selected equation by creating a new equation object, and adds it to the randProblemsArr. | 
+--- | --- | --- | --- |
+randProblemsArr | Array | selectedEquations[0].randProblemsArr[0] for accessing a specific equation. | Shows the array of problems. | 
+--- | --- | --- | --- |
+EZEquation | Class | const equation1 = new EZEquation() | Equation class with sample problems, instantiated when randEquation() is called. | 
+
+## Random Problems Array
+Can access a specific problem from the 3 random exercises that come with each selected equation.
+
+
 # 🔐 auth-api-starterpack
 
 [![GitHub](https://img.shields.io/github/forks/droxey/auth-api-starterpack.svg?style=flat-square)](https://github.com/droxey/auth-api-starterpack/network)
