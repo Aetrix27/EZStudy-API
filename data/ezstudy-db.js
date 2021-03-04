@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 assert = require("assert");
 
-const url = "mongodb://localhost/ezequations-db";
+const url = "mongodb://localhost/ezstudy-db";
 mongoose.Promise = global.Promise;
 mongoose.connect(
   url,

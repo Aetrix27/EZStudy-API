@@ -1,8 +1,8 @@
 ## Documentation
 
-### Retrieve a Random Equation
+### Retrieve a Random Study Card
 Instantiate an equation class and call the get function to get a random equation
-## EZEquations Documentation
+## EZStudy Documentation
 This API uses Javascript.
 
 ## Sign Up and Login
@@ -10,14 +10,13 @@ You must get authenticated during the sign in for security purposes.
 
 Example usage for parameter:
 
-## randEquation() Usage
+## randCard() Usage
 
 Parameter:
 
 Parameter | Type | Usage | Description | 
-randEquation() | Function | randEquation() | Gets a randomly selected equation by creating a new equation object, and adds it to the randProblemsArr. | 
-randProblemsArr | Array | selectedEquations[0].randProblemsArr[0] for accessing a specific equation. | Shows the array of problems. | 
-EZEquation | Class | const equation1 = new EZEquation() | Equation class with sample problems, instantiated when randEquation() is called. | 
+randCard() | Function | randCard() | Gets a randomly selected study card by retrieving it from the database. | 
+Card | db Class | Cards[0].randProblemsArr[0] for accessing a specific equation. | Shows the array of problems. | 
 
 ## Random Problems Array
 Can access a specific problem from the 3 random exercises that come with each selected equation.
