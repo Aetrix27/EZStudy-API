@@ -1,7 +1,19 @@
 <html>
     <body>
-        <a href="/cards/new" class="btn btn-primary navbar-btn">New Card</a>
-        <a href="/randomcard" class="btn btn-primary navbar-btn">Random Card</a>
+        <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            {{#if currentUser}}
+            <a href="/cards/new" class="btn btn-primary navbar-btn">New Card</a>
+            <a href="/randomcard" class="btn btn-primary navbar-btn">Random Card</a>
+            {{/if}}
+
+            <ul class="nav navbar-nav navbar-right">
+            <li><a href="/logout">Logout</a></li>
+            <li><a href="/login">Login</a></li>
+            <li><a href="/sign-up">Sign Up</a></li>
+            </ul>
+        </div>
+        </div>
 
         Study Cards:
 

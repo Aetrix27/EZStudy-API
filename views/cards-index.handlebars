@@ -3,7 +3,7 @@
         <ul>
             {{#each cards}}
                 <li class="list-group-item">
-                    <div class="lead">{{this.topic}}</div>
+                    <div class="lead"><a href="/cards/{{this._id}}">{{this.topic}}</a></div>
                    {{this.exercises}}
                 </li>
             {{/each}}

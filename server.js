@@ -41,6 +41,7 @@ var checkAuth = (req, res, next) => {
 };
 app.use(checkAuth);
 
+require('./controllers/auth.js')(app);
 require('./controllers/cards.js')(app);
 
 // TODO: Add each controller here, after all middleware is initialized.

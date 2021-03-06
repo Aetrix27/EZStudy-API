@@ -1,7 +1,32 @@
 <div class="row">
   <div class="col-sm-6 col-sm-offset-3">
-    <p>{{card.topic}}</p>
+
+    <div class="lead">
+      <a href="/cards/{{card._id}}">{{card.topic}}</a>
+      </div>
+      
     <p>{{card.exercises}}</p>
+    <form action="/edit/{{card._id}}" method="post">
+
+        <div class="form-group">
+          <label for="card-title">Topics</label>
+          <input type="text" name="topic" class="form-control" id="card-topic" value="{{card.topic}}">
+        </div>
+        <div class="form-group">
+          <label for="card-exercises">Exercises</label>
+          <input type="text" name="exercises" class="form-control" id="card-exercises" value="{{card.exercises}}">
+        </div>
+
+        <div class='text-right'>
+          <button type="submit" class="btn btn-primary">Edit Card</button>
+        </div>
+      </form>
+
+     <form action="/delete/{{card._id}}" method="post" >
+ 
+      <button class="btn btn-primary" type="submit">Delete</button>
+    </form>
+
 
   </div>
 </div>

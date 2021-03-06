@@ -1,16 +1,16 @@
 const Card = require('../models/card');
-
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
 
 module.exports = (app) => {
 
   app.get('/', (req, res) => {
+    var currentUser = req.user;
+
     Card.find({}).lean()
       .then(cards => { 
-        console.log("HERESRSF")
         console.log(cards)
-        res.render('cards-index', { cards });
+        res.render('cards-index', { cards, currentUser });
       })
       .catch(err => {
         console.log(err.message);
@@ -18,19 +18,13 @@ module.exports = (app) => {
   })
 
   app.get('/randomcard', (req, res) => {
-        // Get the count of all users
-
     Card.count().exec(function (err, count) {
 
-      // Get a random entry
       var random = Math.floor(Math.random() * count)
 
-      // Again query all users but only fetch one offset by our random #
       Card.findOne().skip(random).exec(
         function (err, cards) {
-          // Tada! random user
           console.log(cards)
-          //res.render('cards-random-index', { cards });
           Card.findById(cards.id).lean()
           .then(card => {
             res.render("cards-random-index", { card });
@@ -60,15 +54,47 @@ module.exports = (app) => {
       });
   });
 
+  app.post('/edit/:id', (req, res) => {
+    Card.findByIdAndUpdate(req.params.id, req.body).then(() => {
+        return Card.findOne({_id: req.params.id})
+    }).then((card) => {
+        res.redirect(`/`);
+        return res.json({card})
+    }).catch((err) => {
+        throw err.message
+    })
+  })
+
+  app.post('/delete/:id', (req, res) => {
+    Card.findByIdAndDelete(req.params.id)
+    .then((card) => {
+      if (card === null) {
+        return res.json({message: 'User does not exist.'})
+      }
+      console.log(card)
+      res.redirect(`/`);
+
+      return res.json({
+        'message': 'Successfully deleted.',
+        '_id': req.params.id
+      })
+    })
+    .catch((err) => {
+      console.log(err.message);
+    })
+  })
+
   // CREATE
   app.post('/cards/new', (req, res) => {
-    // INSTANTIATE INSTANCE OF POST MODEL
-    const card = new Card(req.body);
+    if (req.user) {
 
-    // SAVE INSTANCE OF POST MODEL TO DB
-    card.save((err, card) => {
-      // REDIRECT TO THE ROOT
-      return res.redirect(`/`);
-    })
+      const card = new Card(req.body);
+
+      card.save((err, card) => {
+        return res.redirect(`/`);
+      });
+      } else {
+        return res.status(401); // UNAUTHORIZED
+      }
   });
 };
