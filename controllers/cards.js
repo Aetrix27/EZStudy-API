@@ -2,6 +2,25 @@ const Card = require('../models/card');
 const User = require("../models/user");
 const jwt = require('jsonwebtoken');
 
+function getRandomCard(){
+  Card.count().exec(function (err, count) {
+
+    var random = Math.floor(Math.random() * count)
+
+    Card.findOne().skip(random).exec(
+      function (err, cards) {
+        console.log(cards)
+        Card.findById(cards.id).lean()
+        .then(card => {
+          res.render("cards-random-index", { card });
+        })
+        .catch(err => {
+          console.log(err.message);
+        });
+      })
+     
+  })
+}
 module.exports = (app) => {
 
   app.get('/', (req, res) => {
@@ -39,8 +58,8 @@ module.exports = (app) => {
   })
 
   app.get("/cards/new", function(req,res){
-    //var currentUser = req.user;
-    return res.render("cards-new");
+    var currentUser = req.user;
+    return res.render("cards-new", { currentUser });
   })
 
   app.get("/cards/:id", function(req, res) {
@@ -84,17 +103,30 @@ module.exports = (app) => {
     })
   })
 
-  // CREATE
-  app.post('/cards/new', (req, res) => {
-    if (req.user) {
+ // CREATE
+  app.post("/cards/new", (req, res) => { 
+    var card = new Card(req.body);
+    card.author = req.user._id;
 
-      const card = new Card(req.body);
+    if (req.user) { var card = new Card(req.body); 
+      card.author = req.user._id;
 
-      card.save((err, card) => {
-        return res.redirect(`/`);
+      card
+      .save()
+      .then(card => {
+          return User.findById(req.user._id);
+      })
+      .then(user => {
+          user.cards.unshift(card);
+          user.save();
+          res.redirect(`/`);
+      })
+      .catch(err => {
+          console.log(err.message);
       });
       } else {
-        return res.status(401); // UNAUTHORIZED
+        return res.status(401); 
       }
-  });
+});
+
 };

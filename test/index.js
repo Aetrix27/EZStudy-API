@@ -11,10 +11,9 @@ describe("API Tests", function() {
   it('should get a random equation', (done) => {
     chai.request(app)
     .get(`/equations`)
-    equation_name = randEquation()
+    equation_name = getRandomCard()
     expect(equationList).to.have.members([res.body.equation_name]);
     done()
-
 
   })
 
@@ -24,8 +23,7 @@ describe("API Tests", function() {
       .then(function (initialDocCount) {
           agent
               .post("/posts/new")
-              // This line fakes a form post,
-              // since we're not actually filling out a form
+      
               .set("content-type", "application/x-www-form-urlencoded")
               // Make a request to create another
               .send(newPost)
