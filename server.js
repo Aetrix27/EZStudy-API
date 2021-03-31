@@ -3,6 +3,7 @@ require('dotenv').config();
 const path = require("path");
 const express = require('express');
 const exphbs  = require('express-handlebars');
+var methodOverride = require('method-override');
 var cookieParser = require('cookie-parser');
 const jwt = require('jsonwebtoken');
 const app = express();
@@ -17,6 +18,7 @@ port = 3000
 
 app.use(expressValidator());
 app.use(cookieParser());
+app.use(methodOverride('_method'));
 
 app.engine('handlebars', exphbs({
   layoutsDir: __dirname + '/views/layouts',
@@ -45,7 +47,6 @@ require('./controllers/auth.js')(app);
 require('./controllers/cards.js')(app);
 
 // TODO: Add each controller here, after all middleware is initialized.
-
 
 // Start Server
 app.listen(port, () => {

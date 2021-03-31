@@ -3,10 +3,12 @@
 
     <div class="lead">
       <a href="/cards/{{card._id}}">{{card.topic}}</a>
-      </div>
+    </div>
       
     <p>{{card.exercises}}</p>
-    <form action="/edit/{{card._id}}" method="post">
+    <form action = "/cards/{{card._id}}?_method=PUT", method="post">
+   
+    <!-- <form action="/edit/{{card._id}}" method="post">  form(action=`/pets/${pet._id}?_method=PUT`, method="POST")-->
 
         <div class="form-group">
           <label for="card-title">Topics</label>
@@ -20,11 +22,12 @@
         <div class='text-right'>
           <button type="submit" class="btn btn-primary">Edit Card</button>
         </div>
-      </form>
+    </form>
 
-     <form action="/delete/{{card._id}}" method="post" >
- 
-      <button class="btn btn-primary" type="submit">Delete</button>
+    <form action = "/cards/{{card._id}}?_method=DELETE" method = "post">
+     <!-- <form action="/delete/{{card._id}}" method="post" >    form(action=`/cards/${pet._id}?_method=DELETE`, method="POST")-->
+      <input type="hidden" name="_method" value="DELETE">
+      <button type="submit">Delete resource</button>
     </form>
 
 

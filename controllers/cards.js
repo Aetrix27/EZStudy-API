@@ -73,6 +73,24 @@ module.exports = (app) => {
       });
   });
 
+  app.put('/cards/:id', (req, res) => {
+    Card.findByIdAndUpdate(req.params.id, req.body).then(() => {
+        return Card.findOne({_id: req.params.id})
+    }).then((card) => {
+        res.redirect(`/`);
+        return res.json({card})
+    }).catch((err) => {
+        throw err.message
+    })
+  })
+
+  app.delete('/cards/:id', (req, res) => {
+    Card.findByIdAndRemove(req.params.id).exec((err, card) => {
+      return res.redirect('/')
+    });
+  })
+
+  /*
   app.post('/edit/:id', (req, res) => {
     Card.findByIdAndUpdate(req.params.id, req.body).then(() => {
         return Card.findOne({_id: req.params.id})
@@ -88,7 +106,7 @@ module.exports = (app) => {
     Card.findByIdAndDelete(req.params.id)
     .then((card) => {
       if (card === null) {
-        return res.json({message: 'User does not exist.'})
+        return res.json({message: 'Card does not exist.'})
       }
       console.log(card)
       res.redirect(`/`);
@@ -102,6 +120,7 @@ module.exports = (app) => {
       console.log(err.message);
     })
   })
+*/
 
  // CREATE
   app.post("/cards/new", (req, res) => { 
@@ -110,7 +129,6 @@ module.exports = (app) => {
 
     if (req.user) { var card = new Card(req.body); 
       card.author = req.user._id;
-
       card
       .save()
       .then(card => {
